@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Feb  4 14:55:02 2020
+
+@author: georgiahadjis
+
+My analysis will be done using python. My data output file from my experiment will display trials of a spelling task, their reaction times, whether trials were answered correctly,
+and under what condition the task was performed. The independent variable is the condition, which is the stimulus with which the task is performed. There are four conditions: baseline_pain, pain, baseline_electric, electric. 
+The dependent variables are the reaction times and error rates. The data output file will have columns for each of these variables. Summary measures for average reaction time and error rate will be used for statistical analyses in SPSS.
+Error rates will be calculated from the recorded correct/incorrect responses to trials. I will be creating two dataframes with summary data: 1) will compare the summary values from the pain condition to those of the baseline_pain condition, 
+2) will compare the summary values from the electric condition to those of the baseline_electric condition.
+
+"""
+#import appropriate libraries
+import os
+import pandas as pd
+import numpy as np
+
+
+#set working directory
+working_directory = navigate to working directory of experiment data files
+
+#read in experiment data file as a pandas file
+data = reading in experiment data csv file
+
+#%%
+""" CORRECT TRIALS:
+I want to start by examining the "correct" column which indicates with "0" and "1" whether a trial has been answered incorrectly or correctly, respectively.
+I am going to make a new dataframe that only includes correct trials. To do this, I will index to the "correct" column in my data file and select only values greater than 0 to include in the new dataframe.
+data_clean will be the name of the new dataframe with only correct trials.
+"""
+data_clean = list whether each value in the "correct" column of the data file is greater than 0
+#data_clean will give me values 'True' or 'False' of whether each trial is correct or not
+
+#I will then make a new dataframe using data_clean to remove the incorrect trials from the original data file, while still keeping a copy of the original data file.
+data_correct = new dataframe with only correct trials
+#%%
+""" REACTION TIME OUTLIERS:
+Next I will use data_correct to remove any reaction time outliers. I will calculate the mean of the reaction times as well as the standard deviation. Any reaction times beyond two standard deviations of the mean reaction time will be outliers.
+I will use numpy to calculate the mean and standard deviation.
+"""
+mean_rt = average reaction time
+std_rt = standard deviation of the reaction times
+2std = the value of std_rt multiplied by 2 #determining the value for two standard deviations of the mean
+2std_above_mean = the sum of mean reaction time and value for 2 standard deviations
+2std_below_mean = the difference between mean reaction time and value for 2 standard deviations
+#will make a for loop to loop through reaction times and determine any values that are beyond the 2 standard deviation values. A new dataframe called data_outlier will be used to answer whether a reaction time value is an outlier ('True' or 'False').
+
+for reaction time in data_correct:
+    if reaction time is above or below two standard deviations from the mean:
+        data_outlier = "True"
+    else:
+        data_outlier = "False"
+#Using data_outlier values, I will make a new dataframe called data_correct_rt_clean where outlier reaction times have been removed.
+data_correct_rt_clean = outlier reaction times are removed
+
+#Now that the outliers have been removed, I will calculate the mean of the remaining reaction times.
+mean_rt_clean = average reaction time from data_correct_rt_clean
+std_rt_clean = standard deviation of reaction times from data_correct_rt_clean
+#%%
+""" ERROR RATES:
+I will be using the original data file to determine the error rate of the performed trials. I will divide the number of zeroes in the "correct" column of the data file by
+the total number of rows in the data file, as the number of rows corresponds to the number of trials.
+"""
+
+error_rate = [(number of zeroes in correct column of data file) % (number of rows in data file)]*100 #multiply the error rate value by 100 to get the percent out of 100
+
+#%%
+""" RESULTS:
+I will be adding the correct and clean average reaction time, error rate, ratings, and participant information into a summary dataframe called "results_condition", where condition will be the name of one of the four stimuli outlined above.
+"""
+#Below is the results dataframe to be made for each separate condition:
+results_condition = a new dataframe with columns for subject ID, condition, reaction time, error rate, and a rating for 'pain','intensity', 'salience'
+
+#Concatenate the appropriate results_condition dataframes:
+results_pain = concatenate pain and baseline_pain dataframes
+results_electric = concatenate electric and baseline_electric dataframes
